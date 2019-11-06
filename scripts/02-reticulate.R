@@ -1,13 +1,18 @@
 library(reticulate)
+library(here)
 
-reticulate::conda_list()
-reticulate::use_condaenv("miniconda3")
+(conda_envs <- reticulate::conda_list())
+conda_envs$name[[1]]
+env <- conda_envs$name[[1]]
+env
+
+reticulate::use_condaenv(env)
 
 # reticulate::use_python("~/miniconda3/bin/python")
 
 # reticulate::repl_python()
 
-reticulate::source_python("01-02-python.py")
+reticulate::source_python(here::here("./temp/01-02-python.py"))
 
 df
 df

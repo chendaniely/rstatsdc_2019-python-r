@@ -31,6 +31,8 @@ svm.fit(X_train_scaled, y_train)
 X_test_scaled = scaler.transform(X_test)
 svm.score(X_test_scaled, y_test)
 
+svm.predict(X_test_scaled[1:])
+
 from sklearn.pipeline import Pipeline
 pipe = Pipeline([("scaler", MinMaxScaler()), ("svm", SVC())])
 
