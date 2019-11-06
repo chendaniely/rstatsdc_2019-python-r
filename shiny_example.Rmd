@@ -1,0 +1,74 @@
+---
+title: "Python in Shiny"
+runtime: shiny
+output: ioslides_presentation
+---
+
+## Setup python
+
+Use the default Conda environment
+```{r}
+library(reticulate)
+(conda_envs <- reticulate::conda_list())
+
+conda_envs$name[[1]]
+env <- conda_envs$name[[1]]
+reticulate::use_condaenv(env)
+
+reticulate::py_config()
+```
+
+
+## Get data from scklearn
+
+```{python}
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+
+cancer = load_breast_cancer()
+
+X_train, X_test, y_train, y_test = train_test_split(
+    cancer.data, cancer.target, random_state=0)
+scaler = MinMaxScaler().fit(X_train)
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+```
+
+## Load the model
+
+Model comes from `slides.Rmd`
+
+```{python}
+from joblib import load
+from pyprojroot import here
+
+python_model = load(here("output/python_model.joblib"))
+```
+
+## In Python
+
+```{python}
+python_model.predict(X_test_scaled[:1, :])
+```
+
+## In R
+
+```{r}
+py$python_model$predict(py$X_test_scaled[1, , drop=FALSE])
+```
+
+
+
+## Shiny
+
+```{r}
+inputPanel(
+  sliderInput("bw_adjust", label = "Bandwidth adjustment:",
+              min = 1, max = 20, value = 1, step = 1)
+)
+
+renderText({
+  py$python_model$predict(py$X_test_scaled[1:input$bw_adjust, , drop=FALSE])
+})
+```
