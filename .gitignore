@@ -1,4 +1,8 @@
 output/
+libs/
+ref.Rmd
+slides.html
+slides_files/
 
 # History files
 .Rhistory
