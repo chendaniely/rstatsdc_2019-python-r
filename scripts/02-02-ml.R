@@ -26,12 +26,13 @@ res <- recipes::recipe(target ~ ., data = cancer_train) %>%
   recipes::step_num2factor(recipes::all_outcomes())
 
 res_preped <- res %>% recipes::prep()
-res_baked <- res_preped %>% bake(new_data = cancer_train, composition = "tibble")
-res_test <- res_preped %>% bake(new_data = cancer_test, composition = "tibble")
+
+res_baked <- res_preped %>% bake(new_data = cancer_train, composition = 'tibble')
+res_test <- res_preped %>% bake(new_data = cancer_test, composition = 'tibble')
 
 # model the data -----
-library(parsnip)
 
+library(parsnip)
 
 svm <- parsnip::svm_rbf(mode = "classification", cost = 1) %>%
   parsnip::set_engine("kernlab") %>%
@@ -40,6 +41,7 @@ svm <- parsnip::svm_rbf(mode = "classification", cost = 1) %>%
 # model evaluation -----
 
 library(yardstick)
+
 predict(svm, res_test) %>%
   dplyr::bind_cols(res_test %>% dplyr::select(target)) %>%
   yardstick::accuracy(truth = target, estimate = .pred_class)
