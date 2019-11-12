@@ -423,8 +423,7 @@ billboard_clean_py = (
                       lambda x: int(re.findall(r'\d+', x)[0]))
 )
 
-mean_rank_by_week = (billboard_clean_py
-                     .groupby("week")["rank"]
+mean_rank_by_week = (billboard_clean_py.groupby("week")["rank"]
                      .mean())
 ```
 
