@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Using Python with R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Daniel Chen @chendaniely" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="footer-header.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Using Python with R
+### Daniel Chen <span class="citation">@chendaniely</span>
+### DCR Conference 2019
+
+---
+
+class: inverse
+
+&lt;style&gt;
+div.hello {
+    font-size: 600px;
+}
+
+div.demo {
+    font-size: 200px;
+}
+
+div.halfLink {
+    font-size: 18px;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.tiny { font-size: 50% }
+.small { font-size: 70% }
+.large { font-size: 130% }
+.huge { font-size: 100px }
+&lt;/style&gt;
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+
+&lt;center&gt;
+&lt;div class="hello"&gt;hi!&lt;/div&gt;
+&lt;/center&gt;
+
+---
+class: inverse
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# I'm Daniel
+.pull-left[
+&lt;img src='./figs/daniel_square-800x800.jpg'&gt;&lt;/img&gt;
+]
+
+.pull-right[
+- PhD Student: Virginia Tech
+  - Data Science education
+  - Medical practitioners
+-  Inten at RStudio
+  - [`gradethis`](https://github.com/rstudio-education/gradethis)
+  - Code grader for [`learnr`](https://github.com/rstudio/learnr) documents
+- Author:
+&lt;center&gt;
+&lt;img src='./figs/book.jpg' style="width:200px;"&gt;&lt;/img&gt;
+&lt;/center&gt;
+]
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R and Python
+
+.pull-left[
+The Tiobe Index Top 10
+
+Following are the top 10 languages in the June 2019 Tiobe index:
+
+1. Java
+1. C
+1. **Python**
+1. C
+1. Visual
+1. C
+1. JavaScript
+1. PHP
+1. SQL
+1. Assembly
+]
+
+.pull-right[
+The Pypl Index Top 10
+
+Following are the top 10 languages in the June 2018 Pypl index:
+
+- **Python**
+- Java
+- JavaScript
+- C
+- PHP
+- C
+- **R**
+- Objective
+- Swift
+- Matlab
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.tiny[Taken from: https://www.infoworld.com/article/3401536/python-popularity-reaches-an-all-time-high.html]
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python...
+
+... a general-purpose programming language.
+
+- May not be the best at everything (anything?)
+  - but second best at everthing is pretty good.
+
+- Python does environments better than R (waiting to test out [`renv`](https://rstudio.github.io/renv/))
+- One thing that Python is objectively better at than R is *Web Development* and *Hardware*
+
+
+&lt;center&gt;
+&lt;img src="./figs/python-logo.png" width="250"&gt;
+&lt;/center&gt;
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# What *I* like about R
+
+Communication
+
+.pull-left[
+![](./figs/r-shiny-superzip.png)
+]
+
+.pull-right[
+![](./figs/r-rmarkdown.png)
+]
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Inspiration for talk
+
+2019 Nonclinical Biostatistics Conference
+
+- https://github.com/chendaniely/ncb-2019-python
+
+- Jupyter notebook
+  - RISE plugin (reveal.js)
+  - Slow and clunky
+  - Unable to see source (nicely) without Jupyter loaded
+- RMarkdown + Reticulate = Slides! (hint hint: this talk ;D)
+
+---
+class: inverse, center, middle
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R and Python
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R analysis - Load data
+
+
+```r
+library(here)
+library(readr)
+
+raw = readr::read_csv(here::here("./data/billboard.csv"))
+head(raw)
+```
+
+```
+## # A tibble: 6 x 83
+##    year artist.inverted track time  genre date.entered date.peaked
+##   &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt; &lt;tim&gt; &lt;chr&gt; &lt;date&gt;       &lt;date&gt;     
+## 1  2000 Destiny's Child Inde… 03:38 Rock  2000-09-23   2000-11-18 
+## 2  2000 Santana         Mari… 04:18 Rock  2000-02-12   2000-04-08 
+## 3  2000 Savage Garden   I Kn… 04:07 Rock  1999-10-23   2000-01-29 
+## 4  2000 Madonna         Music 03:45 Rock  2000-08-12   2000-09-16 
+## 5  2000 Aguilera, Chri… Come… 03:38 Rock  2000-08-05   2000-10-14 
+## 6  2000 Janet           Does… 04:17 Rock  2000-06-17   2000-08-26 
+## # … with 76 more variables: x1st.week &lt;dbl&gt;, x2nd.week &lt;dbl&gt;,
+## #   x3rd.week &lt;dbl&gt;, x4th.week &lt;dbl&gt;, x5th.week &lt;dbl&gt;, x6th.week &lt;dbl&gt;,
+## #   x7th.week &lt;dbl&gt;, x8th.week &lt;dbl&gt;, x9th.week &lt;dbl&gt;, x10th.week &lt;dbl&gt;,
+## #   x11th.week &lt;dbl&gt;, x12th.week &lt;dbl&gt;, x13th.week &lt;dbl&gt;,
+## #   x14th.week &lt;dbl&gt;, x15th.week &lt;dbl&gt;, x16th.week &lt;dbl&gt;,
+## #   x17th.week &lt;dbl&gt;, x18th.week &lt;dbl&gt;, x19th.week &lt;dbl&gt;,
+## #   x20th.week &lt;dbl&gt;, x21st.week &lt;dbl&gt;, x22nd.week &lt;dbl&gt;,
+## #   x23rd.week &lt;dbl&gt;, x24th.week &lt;dbl&gt;, x25th.week &lt;dbl&gt;,
+## #   x26th.week &lt;dbl&gt;, x27th.week &lt;dbl&gt;, x28th.week &lt;dbl&gt;,
+## #   x29th.week &lt;dbl&gt;, x30th.week &lt;dbl&gt;, x31st.week &lt;dbl&gt;,
+## #   x32nd.week &lt;dbl&gt;, x33rd.week &lt;dbl&gt;, x34th.week &lt;dbl&gt;,
+## #   x35th.week &lt;dbl&gt;, x36th.week &lt;dbl&gt;, x37th.week &lt;dbl&gt;,
+## #   x38th.week &lt;dbl&gt;, x39th.week &lt;dbl&gt;, x40th.week &lt;dbl&gt;,
+## #   x41st.week &lt;dbl&gt;, x42nd.week &lt;dbl&gt;, x43rd.week &lt;dbl&gt;,
+## #   x44th.week &lt;dbl&gt;, x45th.week &lt;dbl&gt;, x46th.week &lt;dbl&gt;,
+## #   x47th.week &lt;dbl&gt;, x48th.week &lt;dbl&gt;, x49th.week &lt;dbl&gt;,
+## #   x50th.week &lt;dbl&gt;, x51st.week &lt;dbl&gt;, x52nd.week &lt;dbl&gt;,
+## #   x53rd.week &lt;dbl&gt;, x54th.week &lt;dbl&gt;, x55th.week &lt;dbl&gt;,
+## #   x56th.week &lt;dbl&gt;, x57th.week &lt;dbl&gt;, x58th.week &lt;dbl&gt;,
+## #   x59th.week &lt;dbl&gt;, x60th.week &lt;dbl&gt;, x61st.week &lt;dbl&gt;,
+## #   x62nd.week &lt;dbl&gt;, x63rd.week &lt;dbl&gt;, x64th.week &lt;dbl&gt;,
+## #   x65th.week &lt;dbl&gt;, x66th.week &lt;lgl&gt;, x67th.week &lt;lgl&gt;,
+## #   x68th.week &lt;lgl&gt;, x69th.week &lt;lgl&gt;, x70th.week &lt;lgl&gt;,
+## #   x71st.week &lt;lgl&gt;, x72nd.week &lt;lgl&gt;, x73rd.week &lt;lgl&gt;,
+## #   x74th.week &lt;lgl&gt;, x75th.week &lt;lgl&gt;, x76th.week &lt;lgl&gt;
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R analysis - Filter data
+
+
+```r
+library(dplyr)
+
+raw_filtered &lt;- raw %&gt;%
+  dplyr::select(year, artist.inverted, track, time, date.entered,
+                x1st.week:x73rd.week) %&gt;%
+  dplyr::rename(artist = artist.inverted)
+raw_filtered
+```
+
+```
+## # A tibble: 317 x 78
+##     year artist track time  date.entered x1st.week x2nd.week x3rd.week
+##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;tim&gt; &lt;date&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1  2000 Desti… Inde… 03:38 2000-09-23          78        63        49
+##  2  2000 Santa… Mari… 04:18 2000-02-12          15         8         6
+##  3  2000 Savag… I Kn… 04:07 1999-10-23          71        48        43
+##  4  2000 Madon… Music 03:45 2000-08-12          41        23        18
+##  5  2000 Aguil… Come… 03:38 2000-08-05          57        47        45
+##  6  2000 Janet  Does… 04:17 2000-06-17          59        52        43
+##  7  2000 Desti… Say … 04:31 1999-12-25          83        83        44
+##  8  2000 Igles… Be W… 03:36 2000-04-01          63        45        34
+##  9  2000 Sisqo  Inco… 03:52 2000-06-24          77        66        61
+## 10  2000 Lones… Amaz… 04:25 1999-06-05          81        54        44
+## # … with 307 more rows, and 70 more variables: x4th.week &lt;dbl&gt;,
+## #   x5th.week &lt;dbl&gt;, x6th.week &lt;dbl&gt;, x7th.week &lt;dbl&gt;, x8th.week &lt;dbl&gt;,
+## #   x9th.week &lt;dbl&gt;, x10th.week &lt;dbl&gt;, x11th.week &lt;dbl&gt;, x12th.week &lt;dbl&gt;,
+## #   x13th.week &lt;dbl&gt;, x14th.week &lt;dbl&gt;, x15th.week &lt;dbl&gt;,
+## #   x16th.week &lt;dbl&gt;, x17th.week &lt;dbl&gt;, x18th.week &lt;dbl&gt;,
+## #   x19th.week &lt;dbl&gt;, x20th.week &lt;dbl&gt;, x21st.week &lt;dbl&gt;,
+## #   x22nd.week &lt;dbl&gt;, x23rd.week &lt;dbl&gt;, x24th.week &lt;dbl&gt;,
+## #   x25th.week &lt;dbl&gt;, x26th.week &lt;dbl&gt;, x27th.week &lt;dbl&gt;,
+## #   x28th.week &lt;dbl&gt;, x29th.week &lt;dbl&gt;, x30th.week &lt;dbl&gt;,
+## #   x31st.week &lt;dbl&gt;, x32nd.week &lt;dbl&gt;, x33rd.week &lt;dbl&gt;,
+## #   x34th.week &lt;dbl&gt;, x35th.week &lt;dbl&gt;, x36th.week &lt;dbl&gt;,
+## #   x37th.week &lt;dbl&gt;, x38th.week &lt;dbl&gt;, x39th.week &lt;dbl&gt;,
+## #   x40th.week &lt;dbl&gt;, x41st.week &lt;dbl&gt;, x42nd.week &lt;dbl&gt;,
+## #   x43rd.week &lt;dbl&gt;, x44th.week &lt;dbl&gt;, x45th.week &lt;dbl&gt;,
+## #   x46th.week &lt;dbl&gt;, x47th.week &lt;dbl&gt;, x48th.week &lt;dbl&gt;,
+## #   x49th.week &lt;dbl&gt;, x50th.week &lt;dbl&gt;, x51st.week &lt;dbl&gt;,
+## #   x52nd.week &lt;dbl&gt;, x53rd.week &lt;dbl&gt;, x54th.week &lt;dbl&gt;,
+## #   x55th.week &lt;dbl&gt;, x56th.week &lt;dbl&gt;, x57th.week &lt;dbl&gt;,
+## #   x58th.week &lt;dbl&gt;, x59th.week &lt;dbl&gt;, x60th.week &lt;dbl&gt;,
+## #   x61st.week &lt;dbl&gt;, x62nd.week &lt;dbl&gt;, x63rd.week &lt;dbl&gt;,
+## #   x64th.week &lt;dbl&gt;, x65th.week &lt;dbl&gt;, x66th.week &lt;lgl&gt;,
+## #   x67th.week &lt;lgl&gt;, x68th.week &lt;lgl&gt;, x69th.week &lt;lgl&gt;,
+## #   x70th.week &lt;lgl&gt;, x71st.week &lt;lgl&gt;, x72nd.week &lt;lgl&gt;, x73rd.week &lt;lgl&gt;
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R analysis - Tidy data
+
+
+```r
+library(tidyr)
+
+raw_tidy &lt;- raw_filtered %&gt;%
+  tidyr::pivot_longer(cols = tidyselect::starts_with('x'),
+                      names_to = "week",
+                      values_to = "rank")
+raw_tidy
+```
+
+```
+## # A tibble: 23,141 x 7
+##     year artist        track              time  date.entered week      rank
+##    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;              &lt;tim&gt; &lt;date&gt;       &lt;chr&gt;    &lt;dbl&gt;
+##  1  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x1st.we…    78
+##  2  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x2nd.we…    63
+##  3  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x3rd.we…    49
+##  4  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x4th.we…    33
+##  5  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x5th.we…    23
+##  6  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x6th.we…    15
+##  7  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x7th.we…     7
+##  8  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x8th.we…     5
+##  9  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x9th.we…     1
+## 10  2000 Destiny's Ch… Independent Women… 03:38 2000-09-23   x10th.w…     1
+## # … with 23,131 more rows
+```
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R analysis - Clean data
+
+
+```r
+library(purrr)
+library(stringr)
+
+billboard_clean &lt;- raw_tidy %&gt;%
+  dplyr::mutate(
+    week = purrr::map_int(
+      week,
+      #function(x){as.integer(stringr::str_extract(x, '\\d+'))}
+      ~ as.integer(stringr::str_extract(., "\\d+"))
+    )
+  )
+billboard_clean
+```
+
+```
+## # A tibble: 23,141 x 7
+##     year artist         track                time  date.entered  week  rank
+##    &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;                &lt;tim&gt; &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;
+##  1  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       1    78
+##  2  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       2    63
+##  3  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       3    49
+##  4  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       4    33
+##  5  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       5    23
+##  6  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       6    15
+##  7  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       7     7
+##  8  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       8     5
+##  9  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23       9     1
+## 10  2000 Destiny's Chi… Independent Women P… 03:38 2000-09-23      10     1
+## # … with 23,131 more rows
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python analysis
+
+
+
+
+
+```python
+import pandas as pd
+import re
+
+import janitor
+from pyprojroot import here
+
+raw_py = pd.read_csv(here('./data/billboard.csv'),
+                     encoding = "ISO-8859-1")
+
+billboard_clean_py = (
+    raw_py
+    .select_columns(['year', 'artist.inverted', 'track', 'time',
+                     'date.entered', 'x*.week'])
+    .rename_columns({"artist.inverted": "artist"})
+    .melt(id_vars = ['year', 'artist', 'track', 'time',
+                     'date.entered'],
+          var_name = "week",
+          value_name = "rank")
+    .transform_column('week',
+                      lambda x: int(re.findall(r'\d+', x)[0]))
+)
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Reticulate -- Python in R!
+
+&lt;center&gt;
+&lt;img src="./figs/reticulated_python.png" width="250"&gt;
+&lt;/center&gt;
+
+- Calling Python from R
+- Translation between R and Python objects
+- Python environments
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Reticulate
+
+
+```r
+library(reticulate)
+(conda_envs &lt;- reticulate::conda_list())
+```
+
+```
+##         name                            python
+## 1 miniconda3 /home/dchen/miniconda3/bin/python
+```
+
+
+```r
+# use my default conda environment
+conda_envs$name[[1]]
+```
+
+```
+## [1] "miniconda3"
+```
+
+```r
+env &lt;- conda_envs$name[[1]]
+reticulate::use_condaenv(env)
+```
+
+
+```r
+reticulate::py_config()
+```
+
+```
+## python:         /home/dchen/miniconda3/bin/python
+## libpython:      /home/dchen/miniconda3/lib/libpython3.7m.so
+## pythonhome:     /home/dchen/miniconda3:/home/dchen/miniconda3
+## version:        3.7.3 | packaged by conda-forge | (default, Jul  1 2019, 21:52:21)  [GCC 7.3.0]
+## numpy:          /home/dchen/miniconda3/lib/python3.7/site-packages/numpy
+## numpy_version:  1.17.3
+## 
+## python versions found: 
+##  /home/dchen/miniconda3/bin/python
+##  /usr/bin/python
+##  /usr/bin/python3
+##  /home/dchen/anaconda3_bkup/bin/python
+##  /home/dchen/miniconda3_bkup/bin/python
+```
+
+
+- The Python environment is registered for the entire R session.
+- If you want to change environments you need to *restart R*
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# A Python script
+
+
+```python
+import pandas as pd
+import re
+
+import janitor
+from pyprojroot import here
+
+raw_py = pd.read_csv(here('./data/billboard.csv'),
+                     encoding = "ISO-8859-1")
+
+billboard_clean_py = (
+    raw_py
+    .select_columns(['year', 'artist.inverted', 'track', 'time',
+                     'date.entered', 'x*.week'])
+    .rename_columns({"artist.inverted": "artist"})
+    .melt(id_vars = ['year', 'artist', 'track', 'time',
+                     'date.entered'],
+          var_name = "week",
+          value_name = "rank")
+    .transform_column('week',
+                      lambda x: int(re.findall(r'\d+', x)[0]))
+)
+
+mean_rank_by_week = (billboard_clean_py.groupby("week")["rank"]
+                     .mean())
+```
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python objects in R
+
+
+```r
+reticulate::source_python(here::here("./scripts/01-02-python.py"))
+```
+
+
+```r
+head(mean_rank_by_week)
+```
+
+```
+##       1        2        3        4        5        6  
+## 79.95899 71.17308 65.04560 59.76333 56.33904 52.36071
+```
+
+
+```r
+head(billboard_clean_py)
+```
+
+```
+##   year              artist                                 track time
+## 1 2000     Destiny's Child              Independent Women Part I 3:38
+## 2 2000             Santana                          Maria, Maria 4:18
+## 3 2000       Savage Garden                    I Knew I Loved You 4:07
+## 4 2000             Madonna                                 Music 3:45
+## 5 2000 Aguilera, Christina Come On Over Baby (All I Want Is You) 3:38
+## 6 2000               Janet                 Doesn't Really Matter 4:17
+##   date.entered week rank
+## 1   2000-09-23    1   78
+## 2   2000-02-12    1   15
+## 3   1999-10-23    1   71
+## 4   2000-08-12    1   41
+## 5   2000-08-05    1   57
+## 6   2000-06-17    1   59
+```
+
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Type conversions table
+
+&lt;table class="table"&gt;
+&lt;thead&gt;&lt;tr class="header"&gt;
+&lt;th&gt;R&lt;/th&gt;
+&lt;th&gt;Python&lt;/th&gt;
+&lt;th&gt;Examples&lt;/th&gt;
+&lt;/tr&gt;&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;Single-element vector&lt;/td&gt;
+&lt;td&gt;Scalar&lt;/td&gt;
+&lt;td&gt;
+&lt;code&gt;1&lt;/code&gt;, &lt;code&gt;1L&lt;/code&gt;, &lt;code&gt;TRUE&lt;/code&gt;, &lt;code&gt;"foo"&lt;/code&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;Multi-element vector&lt;/td&gt;
+&lt;td&gt;List&lt;/td&gt;
+&lt;td&gt;
+&lt;code&gt;c(1.0, 2.0, 3.0)&lt;/code&gt;, &lt;code&gt;c(1L, 2L, 3L)&lt;/code&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;List of multiple types&lt;/td&gt;
+&lt;td&gt;Tuple&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;list(1L, TRUE, "foo")&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;Named list&lt;/td&gt;
+&lt;td&gt;Dict&lt;/td&gt;
+&lt;td&gt;
+&lt;code&gt;list(a = 1L, b = 2.0)&lt;/code&gt;, &lt;code&gt;&lt;a href="reference/dict.html"&gt;dict(x = x_data)&lt;/a&gt;&lt;/code&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;Matrix/Array&lt;/td&gt;
+&lt;td&gt;NumPy ndarray&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;matrix(c(1,2,3,4), nrow = 2, ncol = 2)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;Data Frame&lt;/td&gt;
+&lt;td&gt;Pandas DataFrame&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;data.frame(x = c(1,2,3), y = c("a", "b", "c"))&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;Function&lt;/td&gt;
+&lt;td&gt;Python function&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;function(x) x + 1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;NULL, TRUE, FALSE&lt;/td&gt;
+&lt;td&gt;None, True, False&lt;/td&gt;
+&lt;td&gt;
+&lt;code&gt;NULL&lt;/code&gt;, &lt;code&gt;TRUE&lt;/code&gt;, &lt;code&gt;FALSE&lt;/code&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.tiny[https://rstudio.github.io/reticulate/#type-conversions]
+
+---
+class: inverse, center, middle
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Machine Learning
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# The data
+
+No standard for how to transport data within a package...
+
+
+```python
+from sklearn.datasets import load_breast_cancer
+cancer = load_breast_cancer()
+
+print(type(cancer))
+```
+
+```
+## &lt;class 'sklearn.utils.Bunch'&gt;
+```
+
+**vs**
+
+
+```python
+import seaborn as sns
+tips = sns.load_dataset("tips")
+print(type(tips))
+```
+
+```
+## &lt;class 'pandas.core.frame.DataFrame'&gt;
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# The data
+
+
+```python
+cancer.target[:10]
+```
+
+```
+## array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+```
+
+
+```python
+cancer.data[:10]
+```
+
+```
+## array([[1.799e+01, 1.038e+01, 1.228e+02, 1.001e+03, 1.184e-01, 2.776e-01,
+##         3.001e-01, 1.471e-01, 2.419e-01, 7.871e-02, 1.095e+00, 9.053e-01,
+##         8.589e+00, 1.534e+02, 6.399e-03, 4.904e-02, 5.373e-02, 1.587e-02,
+##         3.003e-02, 6.193e-03, 2.538e+01, 1.733e+01, 1.846e+02, 2.019e+03,
+##         1.622e-01, 6.656e-01, 7.119e-01, 2.654e-01, 4.601e-01, 1.189e-01],
+##        [2.057e+01, 1.777e+01, 1.329e+02, 1.326e+03, 8.474e-02, 7.864e-02,
+##         8.690e-02, 7.017e-02, 1.812e-01, 5.667e-02, 5.435e-01, 7.339e-01,
+##         3.398e+00, 7.408e+01, 5.225e-03, 1.308e-02, 1.860e-02, 1.340e-02,
+##         1.389e-02, 3.532e-03, 2.499e+01, 2.341e+01, 1.588e+02, 1.956e+03,
+##         1.238e-01, 1.866e-01, 2.416e-01, 1.860e-01, 2.750e-01, 8.902e-02],
+##        [1.969e+01, 2.125e+01, 1.300e+02, 1.203e+03, 1.096e-01, 1.599e-01,
+##         1.974e-01, 1.279e-01, 2.069e-01, 5.999e-02, 7.456e-01, 7.869e-01,
+##         4.585e+00, 9.403e+01, 6.150e-03, 4.006e-02, 3.832e-02, 2.058e-02,
+##         2.250e-02, 4.571e-03, 2.357e+01, 2.553e+01, 1.525e+02, 1.709e+03,
+##         1.444e-01, 4.245e-01, 4.504e-01, 2.430e-01, 3.613e-01, 8.758e-02],
+##        [1.142e+01, 2.038e+01, 7.758e+01, 3.861e+02, 1.425e-01, 2.839e-01,
+##         2.414e-01, 1.052e-01, 2.597e-01, 9.744e-02, 4.956e-01, 1.156e+00,
+##         3.445e+00, 2.723e+01, 9.110e-03, 7.458e-02, 5.661e-02, 1.867e-02,
+##         5.963e-02, 9.208e-03, 1.491e+01, 2.650e+01, 9.887e+01, 5.677e+02,
+##         2.098e-01, 8.663e-01, 6.869e-01, 2.575e-01, 6.638e-01, 1.730e-01],
+##        [2.029e+01, 1.434e+01, 1.351e+02, 1.297e+03, 1.003e-01, 1.328e-01,
+##         1.980e-01, 1.043e-01, 1.809e-01, 5.883e-02, 7.572e-01, 7.813e-01,
+##         5.438e+00, 9.444e+01, 1.149e-02, 2.461e-02, 5.688e-02, 1.885e-02,
+##         1.756e-02, 5.115e-03, 2.254e+01, 1.667e+01, 1.522e+02, 1.575e+03,
+##         1.374e-01, 2.050e-01, 4.000e-01, 1.625e-01, 2.364e-01, 7.678e-02],
+##        [1.245e+01, 1.570e+01, 8.257e+01, 4.771e+02, 1.278e-01, 1.700e-01,
+##         1.578e-01, 8.089e-02, 2.087e-01, 7.613e-02, 3.345e-01, 8.902e-01,
+##         2.217e+00, 2.719e+01, 7.510e-03, 3.345e-02, 3.672e-02, 1.137e-02,
+##         2.165e-02, 5.082e-03, 1.547e+01, 2.375e+01, 1.034e+02, 7.416e+02,
+##         1.791e-01, 5.249e-01, 5.355e-01, 1.741e-01, 3.985e-01, 1.244e-01],
+##        [1.825e+01, 1.998e+01, 1.196e+02, 1.040e+03, 9.463e-02, 1.090e-01,
+##         1.127e-01, 7.400e-02, 1.794e-01, 5.742e-02, 4.467e-01, 7.732e-01,
+##         3.180e+00, 5.391e+01, 4.314e-03, 1.382e-02, 2.254e-02, 1.039e-02,
+##         1.369e-02, 2.179e-03, 2.288e+01, 2.766e+01, 1.532e+02, 1.606e+03,
+##         1.442e-01, 2.576e-01, 3.784e-01, 1.932e-01, 3.063e-01, 8.368e-02],
+##        [1.371e+01, 2.083e+01, 9.020e+01, 5.779e+02, 1.189e-01, 1.645e-01,
+##         9.366e-02, 5.985e-02, 2.196e-01, 7.451e-02, 5.835e-01, 1.377e+00,
+##         3.856e+00, 5.096e+01, 8.805e-03, 3.029e-02, 2.488e-02, 1.448e-02,
+##         1.486e-02, 5.412e-03, 1.706e+01, 2.814e+01, 1.106e+02, 8.970e+02,
+##         1.654e-01, 3.682e-01, 2.678e-01, 1.556e-01, 3.196e-01, 1.151e-01],
+##        [1.300e+01, 2.182e+01, 8.750e+01, 5.198e+02, 1.273e-01, 1.932e-01,
+##         1.859e-01, 9.353e-02, 2.350e-01, 7.389e-02, 3.063e-01, 1.002e+00,
+##         2.406e+00, 2.432e+01, 5.731e-03, 3.502e-02, 3.553e-02, 1.226e-02,
+##         2.143e-02, 3.749e-03, 1.549e+01, 3.073e+01, 1.062e+02, 7.393e+02,
+##         1.703e-01, 5.401e-01, 5.390e-01, 2.060e-01, 4.378e-01, 1.072e-01],
+##        [1.246e+01, 2.404e+01, 8.397e+01, 4.759e+02, 1.186e-01, 2.396e-01,
+##         2.273e-01, 8.543e-02, 2.030e-01, 8.243e-02, 2.976e-01, 1.599e+00,
+##         2.039e+00, 2.394e+01, 7.149e-03, 7.217e-02, 7.743e-02, 1.432e-02,
+##         1.789e-02, 1.008e-02, 1.509e+01, 4.068e+01, 9.765e+01, 7.114e+02,
+##         1.853e-01, 1.058e+00, 1.105e+00, 2.210e-01, 4.366e-01, 2.075e-01]])
+```
+
+---
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python -- Preprocess
+
+
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.svm import SVC
+
+# split the data
+X_train, X_test, y_train, y_test = train_test_split(
+    cancer.data, cancer.target, random_state=0)
+
+# compute minimum and maximum on the training data
+scaler = MinMaxScaler().fit(X_train)
+
+# rescale training data
+X_train_scaled = scaler.transform(X_train)
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python -- Fit
+
+
+```python
+svm = SVC()
+# learn an SVM on the scaled training data
+svm.fit(X_train_scaled, y_train)
+```
+
+```
+## SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+##     decision_function_shape='ovr', degree=3, gamma='auto_deprecated',
+##     kernel='rbf', max_iter=-1, probability=False, random_state=None,
+##     shrinking=True, tol=0.001, verbose=False)
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python -- Evaluate
+
+
+```python
+# scale test data and score the scaled data
+X_test_scaled = scaler.transform(X_test)
+svm.score(X_test_scaled, y_test)
+```
+
+```
+## 0.951048951048951
+```
+
+.tiny[Default scoring metric is accuracy]
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R -- Python setup
+
+
+```r
+library(reticulate)
+# reticulate::use_condaenv("miniconda3")
+
+(conda_envs &lt;- reticulate::conda_list())
+```
+
+```
+##         name                            python
+## 1 miniconda3 /home/dchen/miniconda3/bin/python
+```
+
+```r
+conda_envs$name[[1]]
+```
+
+```
+## [1] "miniconda3"
+```
+
+```r
+env &lt;- conda_envs$name[[1]]
+reticulate::use_condaenv(env)
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R -- Get data
+
+
+```r
+sklearn_datasets = reticulate::import_from_path("sklearn.datasets")
+cancer = sklearn_datasets$load_breast_cancer()
+
+library(tibble)
+cancer_df &lt;- tibble::as_tibble(cancer$data)
+names(cancer_df) &lt;- cancer$feature_names
+cancer_df$target &lt;- cancer$target
+cancer_df
+```
+
+```
+## # A tibble: 569 x 31
+##    `mean radius` `mean texture` `mean perimeter` `mean area`
+##            &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;
+##  1          18.0           10.4            123.        1001 
+##  2          20.6           17.8            133.        1326 
+##  3          19.7           21.2            130         1203 
+##  4          11.4           20.4             77.6        386.
+##  5          20.3           14.3            135.        1297 
+##  6          12.4           15.7             82.6        477.
+##  7          18.2           20.0            120.        1040 
+##  8          13.7           20.8             90.2        578.
+##  9          13             21.8             87.5        520.
+## 10          12.5           24.0             84.0        476.
+## # … with 559 more rows, and 27 more variables: `mean smoothness` &lt;dbl&gt;,
+## #   `mean compactness` &lt;dbl&gt;, `mean concavity` &lt;dbl&gt;, `mean concave
+## #   points` &lt;dbl&gt;, `mean symmetry` &lt;dbl&gt;, `mean fractal dimension` &lt;dbl&gt;,
+## #   `radius error` &lt;dbl&gt;, `texture error` &lt;dbl&gt;, `perimeter error` &lt;dbl&gt;,
+## #   `area error` &lt;dbl&gt;, `smoothness error` &lt;dbl&gt;, `compactness
+## #   error` &lt;dbl&gt;, `concavity error` &lt;dbl&gt;, `concave points error` &lt;dbl&gt;,
+## #   `symmetry error` &lt;dbl&gt;, `fractal dimension error` &lt;dbl&gt;, `worst
+## #   radius` &lt;dbl&gt;, `worst texture` &lt;dbl&gt;, `worst perimeter` &lt;dbl&gt;, `worst
+## #   area` &lt;dbl&gt;, `worst smoothness` &lt;dbl&gt;, `worst compactness` &lt;dbl&gt;,
+## #   `worst concavity` &lt;dbl&gt;, `worst concave points` &lt;dbl&gt;, `worst
+## #   symmetry` &lt;dbl&gt;, `worst fractal dimension` &lt;dbl&gt;, target &lt;dbl&gt;
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R -- Preprocess
+
+
+```r
+library(rsample)
+library(recipes)
+
+cancer_split &lt;- rsample::initial_split(cancer_df)
+cancer_train &lt;- rsample::training(cancer_split)
+cancer_test &lt;- rsample::testing(cancer_split)
+
+res &lt;- recipes::recipe(target ~ ., data = cancer_train) %&gt;%
+  recipes::step_scale(recipes::all_predictors()) %&gt;%
+  recipes::step_num2factor(recipes::all_outcomes())
+
+res_preped &lt;- res %&gt;% recipes::prep()
+res_baked &lt;- res_preped %&gt;% bake(new_data = cancer_train,
+                                 composition = "tibble")
+res_test &lt;- res_preped %&gt;% bake(new_data = cancer_test,
+                                composition = "tibble")
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R -- Fit
+
+https://tidymodels.github.io/parsnip/articles/articles/Models.html
+
+
+```r
+library(parsnip)
+
+
+svm &lt;- parsnip::svm_rbf(mode = "classification", cost = 1) %&gt;%
+  parsnip::set_engine("kernlab") %&gt;%
+  parsnip::fit(target ~ ., data = res_baked)
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R -- Evaluate
+
+
+```r
+library(yardstick)
+predict(svm, res_test) %&gt;%
+  dplyr::bind_cols(res_test %&gt;% dplyr::select(target)) %&gt;%
+  yardstick::accuracy(truth = target, estimate = .pred_class)
+```
+
+```
+## # A tibble: 1 x 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.979
+```
+
+---
+class: inverse, center, middle
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Communication
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# This presentation
+
+- Written in RMarkdown exported as a [xaringan](https://github.com/yihui/xaringan) slide deck
+- All the R **and** Python code are live executed by changing the execution engine
+
+````markdown
+```{r}
+library(reticulate)
+reticulate::use_condaenv("Anaconda3")
+```
+
+```{python}
+from sklearn.datasets import load_breast_cancer
+cancer = load_breast_cancer()
+```
+````
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Sharing objects R &lt; -- &gt; Python
+
+- In R chunks, you can access python objects with: `py$`
+- In Python chunks, you can access R objects with: `r.`
+  - Note the dot in `r.`
+
+In Python chunk:
+
+
+```python
+single_obs_py = X_test_scaled[:1, :] # first row of the test data
+single_obs_py
+```
+
+```
+## array([[0.30380046, 0.44854772, 0.30993021, 0.17527041, 0.62962963,
+##         0.43668242, 0.33856607, 0.40616302, 0.53333333, 0.49052233,
+##         0.10106826, 0.12555836, 0.11006926, 0.04942689, 0.17120785,
+##         0.1958559 , 0.08717172, 0.25269937, 0.17111501, 0.10745132,
+##         0.301672  , 0.47014925, 0.31321281, 0.16201337, 0.56943802,
+##         0.34763416, 0.40782748, 0.70651051, 0.39818648, 0.36639118]])
+```
+
+In R chunk:
+
+
+```r
+single_obs_r &lt;-py$single_obs_py # get an R object
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Python -- Prediction
+
+
+```python
+svm.predict(single_obs_py) # using python variable
+```
+
+```
+## array([0])
+```
+
+
+```python
+svm.predict(r.single_obs_r) # using R variable
+```
+
+```
+## array([0])
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# R -- Prediction
+
+
+```r
+r_dat &lt;- as.data.frame(single_obs_r)
+names(r_dat) &lt;- py$cancer$feature_names
+predict(svm, r_dat)
+```
+
+```
+## # A tibble: 1 x 1
+##   .pred_class
+##   &lt;fct&gt;      
+## 1 0
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Shiny
+
+https://scikit-learn.org/stable/modules/model_persistence.html
+
+
+Save out the model
+
+```python
+from joblib import dump, load
+from pyprojroot import here
+
+dump(svm, here("output/python_model.joblib", warn=False))
+```
+
+```
+## ['/home/dchen/git/hub/rstatsdc_2019-python-r/output/python_model.joblib']
+```
+
+Load the model
+
+
+```python
+python_model = load(here("output/python_model.joblib")) 
+```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# The -down ecosystem
+
+All of this is using the `reticulate` R package
+
+https://rstudio.github.io/reticulate/
+
+- Bookdown
+- Blogdown
+  - Hugo academic already supports Jupyter notebooks
+  - https://sourcethemes.com/academic/docs/jupyter
+
+
+## By the way...
+
+- `knitpy`: https://github.com/jankatins/knitpy
+- `jupyter books`: https://jupyterbook.org/intro.html
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Creating a reticulated R package
+
+The R keras package is an R wrapper around keras for Python
+  - https://keras.rstudio.com/
+
+https://rstudio.github.io/reticulate/articles/package.html
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Installing Python...
+
+I recommend looking at the Software-Carpentry setup instructions:
+
+https://swcarpentry.github.io/python-novice-inflammation/setup/index.html
+
+Most people in data science use Anaconda to install Python
+
+- https://www.anaconda.com/distribution/
+
+People who mainly use python for Web development don't use Anaconda
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# About conda..
+
+What they forgot to teach you about R: https://rstats.wtf/
+
+There's a section about using conda with R:
+https://rstats.wtf/set-up-an-r-dev-environment.html#what-about-conda
+
+tl;dr - don't mix `conda install` with `install.packages()`
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Apache arrow
+
+If you heard me speak before...
+
+- DCR 2018: Structuring Your Data Science Projects
+  - https://youtu.be/UQHz38s3DyA
+- NYR 2019: Building Reproducible and Replicable Projects
+  - https://youtu.be/t-vY9FeIIMk
+
+Save out data objects to share between Python and R scripts
+
+- Python: https://arrow.apache.org/docs/python/
+- R: https://arrow.apache.org/docs/r/
+
+---
+
+class: center, middle, inverse
+
+# Thanks!
+
+@chendaniely
+
+Slides: https://github.com/chendaniely/rstatsdc_2019-python-r
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
