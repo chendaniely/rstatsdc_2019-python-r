@@ -155,7 +155,7 @@ https://github.com/chendaniely/rstatsdc_2019-python-r
   - but second best at everthing is pretty good.
 
 - Python does environments better than R (waiting to test out [`renv`](https://rstudio.github.io/renv/))
-- One thing that Python is objectively better at than R is *Web Development* 
+- One thing that Python is objectively better at than R is *Web Development* and *Hardware*
 
 
 <center>
