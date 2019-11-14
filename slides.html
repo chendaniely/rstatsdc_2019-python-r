@@ -1049,7 +1049,7 @@ predict(svm, res_test) %&gt;%
 ## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.979
+## 1 accuracy binary         0.972
 ```
 
 ---
@@ -1210,6 +1210,31 @@ Load the model
 ```python
 python_model = load(here("output/python_model.joblib")) 
 ```
+
+---
+&lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+DCR Conference 2019
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+https://github.com/chendaniely/rstatsdc_2019-python-r
+&lt;/span&gt;&lt;/div&gt; 
+
+# Shiny
+
+https://github.com/chendaniely/rstatsdc_2019-python-r/blob/master/shiny_example.Rmd
+
+````markdown
+```{r}
+inputPanel(
+  sliderInput("bw_adjust", label = "Bandwidth adjustment:",
+              min = 1, max = 20, value = 1, step = 1)
+)
+
+renderText({
+  py$python_model$predict(py$X_test_scaled[1:input$bw_adjust, , drop=FALSE])
+})
+```
+````
 
 ---
 &lt;div class="my-footer"&gt;&lt;span&gt;Daniel Chen @chendaniely
